@@ -375,7 +375,7 @@ canvas { border-radius: 8px; }
   <!-- STATUS BAR -->
   <div class="fb-status connecting" id="fb-status">
     <div class="status-dot" id="status-dot"></div>
-    <span id="status-txt"><span class="spinner"></span>Conectando ao Firebase...</span>
+    <span id="status-txt"><span class="spinner"></span>Conectando...</span>
   </div>
 
   <!-- TABS -->
@@ -550,7 +550,7 @@ function setStatus(type, msg) {
 
 // ══ AUTO-CONNECT ON LOAD ══
 async function autoConnect() {
-  setStatus('connecting', '<span class="spinner"></span>Conectando ao Firebase...');
+  setStatus('connecting', '<span class="spinner"></span>Conectando...');
   try {
     const app = initializeApp(firebaseConfig);
     db   = getFirestore(app);
@@ -608,7 +608,7 @@ window.renderHist = async function() {
     cs.style.display = 'none';
     content.innerHTML = `<div class="hist-empty">
       <div class="hist-empty-ico">🔥</div>
-      <div class="hist-empty-txt">Aguardando conexão com o Firebase...</div>
+      <div class="hist-empty-txt">Aguardando conexão...</div>
     </div>`;
     return;
   }
