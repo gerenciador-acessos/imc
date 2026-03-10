@@ -20,7 +20,6 @@
   --t3: #4a5f73;
   --accent: #4fd1c5;
   --accent2: #63b3ed;
-
   --abaixo: #63b3ed;
   --normal: #4fd1c5;
   --sobrepeso: #f6ad55;
@@ -41,7 +40,6 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--s4); border-radius: 4px; }
 
-/* ── BG NOISE ── */
 body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -50,19 +48,17 @@ body::before {
   opacity: .6;
 }
 
-/* ── GLOW ORBS ── */
 .orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; opacity: .12; }
 .orb1 { width: 500px; height: 500px; background: var(--accent); top: -200px; right: -100px; }
 .orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -150px; left: -100px; }
 
-/* ── LAYOUT ── */
 .wrap {
   position: relative; z-index: 1;
   max-width: 900px; margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
 }
 
-/* ── HEADER ── */
+/* HEADER */
 .hdr { text-align: center; margin-bottom: 2.5rem; }
 .hdr-eyebrow {
   font-family: 'DM Mono', monospace;
@@ -83,7 +79,25 @@ body::before {
 }
 .hdr-sub { font-size: .9rem; color: var(--t2); margin-top: .6rem; font-weight: 300; }
 
-/* ── TABS ── */
+/* firebase banner removed — auto-connect */
+
+/* STATUS */
+.fb-status {
+  display: flex; align-items: center; gap: .5rem;
+  font-family: 'DM Mono', monospace; font-size: .68rem;
+  padding: .55rem .9rem; border-radius: 8px;
+  margin-bottom: 1.5rem;
+  transition: all .3s;
+}
+.fb-status.disconnected { background: rgba(252,129,129,.07); border: 1px solid rgba(252,129,129,.2); color: #fc8181; }
+.fb-status.connecting   { background: rgba(246,173,85,.07);  border: 1px solid rgba(246,173,85,.2);  color: #f6ad55; }
+.fb-status.connected    { background: rgba(79,209,197,.07);  border: 1px solid rgba(79,209,197,.2);  color: var(--accent); }
+.fb-status.error        { background: rgba(252,129,129,.07); border: 1px solid rgba(252,129,129,.2); color: #fc8181; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.status-dot.pulse { animation: pulse 1.4s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+/* TABS */
 .tabs {
   display: flex; gap: .35rem;
   background: var(--s1); border: 1px solid var(--bd);
@@ -102,26 +116,26 @@ body::before {
 .tab.active { background: var(--s3); color: var(--t1); }
 .tab .tab-ico { font-size: 1rem; }
 
-/* ── SECTION ── */
+/* SECTION */
 .section { display: none; }
 .section.active { display: block; animation: fadeUp .3s ease; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
-/* ── CARDS ── */
+/* CARDS */
 .card {
   background: var(--s1); border: 1px solid var(--bd);
   border-radius: 20px; padding: 1.75rem;
   margin-bottom: 1.25rem;
 }
 .card-title {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  font-family: 'Syne', sans-serif; font-weight: 700;
   color: var(--t2); letter-spacing: .04em; text-transform: uppercase;
   font-size: .72rem; margin-bottom: 1.25rem;
   display: flex; align-items: center; gap: .5rem;
 }
 .card-title::after { content: ''; flex: 1; height: 1px; background: var(--bd); }
 
-/* ── FORM ── */
+/* FORM */
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .field { display: flex; flex-direction: column; gap: .45rem; }
 .field label {
@@ -165,11 +179,8 @@ body::before {
 .btn-calc:hover::before { opacity: 1; }
 .btn-calc:active { transform: translateY(0); }
 
-/* ── RESULT ── */
-.result-box {
-  display: none;
-  animation: fadeUp .35s ease;
-}
+/* RESULT */
+.result-box { display: none; animation: fadeUp .35s ease; }
 .result-box.show { display: block; }
 
 .imc-display {
@@ -180,20 +191,26 @@ body::before {
 .imc-number {
   font-family: 'Syne', sans-serif;
   font-size: clamp(3.5rem, 10vw, 5.5rem);
-  font-weight: 800; line-height: 1;
-  transition: color .4s;
+  font-weight: 800; line-height: 1; transition: color .4s;
 }
 .imc-label {
   font-family: 'DM Mono', monospace; font-size: .7rem;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--t2);
-  margin-top: .2rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--t2); margin-top: .2rem;
 }
 .imc-info { flex: 1; min-width: 220px; }
-.imc-class {
-  font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
-  margin-bottom: .4rem;
-}
+.imc-class { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: .4rem; }
 .imc-detail { font-size: .88rem; color: var(--t2); line-height: 1.6; }
+
+/* SAVE STATUS */
+.save-note {
+  margin-top: 1rem; padding: .6rem 1rem;
+  border-radius: 10px; font-family: 'DM Mono', monospace; font-size: .68rem;
+  text-align: center; transition: all .3s;
+}
+.save-note.saving  { background: rgba(246,173,85,.08); border: 1px solid rgba(246,173,85,.2); color: #f6ad55; }
+.save-note.saved   { background: rgba(79,209,197,.08); border: 1px solid rgba(79,209,197,.2); color: var(--accent); }
+.save-note.nosave  { background: rgba(255,255,255,.03); border: 1px solid var(--bd2); color: var(--t3); }
+.save-note.saveerr { background: rgba(252,129,129,.08); border: 1px solid rgba(252,129,129,.2); color: #fc8181; }
 
 /* IMC SCALE */
 .scale-wrap { margin-top: 1.5rem; }
@@ -222,7 +239,7 @@ body::before {
   color: var(--t3); letter-spacing: .05em;
 }
 
-/* WEIGHT INFO */
+/* WEIGHT CARDS */
 .weight-cards {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: .75rem; margin-top: 1.25rem;
@@ -238,10 +255,8 @@ body::before {
 .wcard-lbl { font-size: .65rem; color: var(--t2); letter-spacing: .06em; text-transform: uppercase; }
 .wcard-sub { font-size: .7rem; color: var(--t3); margin-top: .2rem; font-family: 'DM Mono', monospace; }
 
-/* ── DICAS ── */
-.tips-header {
-  display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem;
-}
+/* DICAS */
+.tips-header { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
 .tips-icon { font-size: 1.8rem; }
 .tips-heading { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; }
 .tips-sub { font-size: .8rem; color: var(--t2); margin-top: .1rem; }
@@ -255,7 +270,7 @@ body::before {
 .tip-text { font-size: .82rem; color: var(--t2); line-height: 1.6; }
 .tip-text b { color: var(--t1); display: block; margin-bottom: .15rem; font-family: 'Syne', sans-serif; font-size: .8rem; }
 
-/* ── HISTORICO ── */
+/* HISTORICO */
 .hist-empty {
   text-align: center; padding: 3rem 1rem;
   color: var(--t3); font-size: .88rem;
@@ -281,8 +296,7 @@ body::before {
 .hist-del {
   background: transparent; border: none; color: var(--t3);
   cursor: pointer; font-size: .85rem; padding: .25rem;
-  border-radius: 6px; transition: color .15s, background .15s;
-  flex-shrink: 0;
+  border-radius: 6px; transition: color .15s, background .15s; flex-shrink: 0;
 }
 .hist-del:hover { color: #fc8181; background: rgba(252,129,129,.1); }
 
@@ -296,12 +310,23 @@ body::before {
 }
 .btn-clear-all:hover { background: rgba(252,129,129,.12); border-color: rgba(252,129,129,.4); }
 
-/* ── CHARTS ── */
+.btn-refresh {
+  padding: .4rem .9rem; border-radius: 8px;
+  border: 1px solid var(--bd); background: transparent;
+  color: var(--t2); font-family: 'DM Mono', monospace;
+  font-size: .65rem; cursor: pointer; transition: all .15s;
+  letter-spacing: .08em;
+}
+.btn-refresh:hover { border-color: var(--accent); color: var(--accent); }
+
+.hist-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+
+/* CHARTS */
 .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .chart-wrap { position: relative; height: 220px; }
 canvas { border-radius: 8px; }
 
-/* ── TABELA IMC ── */
+/* TABELA IMC */
 .table-imc { width: 100%; border-collapse: collapse; margin-top: .5rem; }
 .table-imc th {
   font-family: 'DM Mono', monospace; font-size: .6rem;
@@ -313,7 +338,15 @@ canvas { border-radius: 8px; }
 .table-imc .tc { border-radius: 6px; padding: .18rem .5rem; font-family: 'DM Mono', monospace; font-size: .72rem; font-weight: 500; }
 .table-imc tr.highlight td { background: var(--s2); }
 
-/* ── RESPONSIVE ── */
+/* SPINNER */
+.spinner {
+  display: inline-block; width: 12px; height: 12px;
+  border: 2px solid rgba(79,209,197,.2); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle; margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
   .form-grid { grid-template-columns: 1fr; }
   .imc-display { flex-direction: column; align-items: flex-start; }
@@ -321,6 +354,7 @@ canvas { border-radius: 8px; }
   .tips-grid { grid-template-columns: 1fr; }
   .tabs { gap: .2rem; }
   .tab { font-size: .7rem; padding: .55rem .35rem; }
+  .fb-fields { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -330,11 +364,18 @@ canvas { border-radius: 8px; }
 <div class="orb orb2"></div>
 
 <div class="wrap">
+
   <!-- HEADER -->
   <div class="hdr">
     <div class="hdr-eyebrow">Índice de Massa Corporal</div>
     <h1>Calculadora IMC</h1>
-    <p class="hdr-sub">Acompanhe seu peso, evolução e saúde em um só lugar</p>
+    <p class="hdr-sub">Acompanhe seu peso, evolução e saúde em um só lugar ;)</p>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="fb-status connecting" id="fb-status">
+    <div class="status-dot" id="status-dot"></div>
+    <span id="status-txt"><span class="spinner"></span>Conectando ao Firebase...</span>
   </div>
 
   <!-- TABS -->
@@ -394,6 +435,8 @@ canvas { border-radius: 8px; }
         </div>
         <!-- WEIGHT CARDS -->
         <div class="weight-cards" id="weight-cards"></div>
+        <!-- SAVE NOTE -->
+        <div class="save-note nosave" id="save-note" style="display:none"></div>
       </div>
 
       <!-- DICAS -->
@@ -412,7 +455,6 @@ canvas { border-radius: 8px; }
 
   <!-- ════ HISTORICO ════ -->
   <div class="section" id="sec-hist">
-    <!-- CHARTS -->
     <div class="card" id="charts-section" style="display:none">
       <div class="card-title">✦ Evolução</div>
       <div class="charts-grid">
@@ -426,10 +468,11 @@ canvas { border-radius: 8px; }
         </div>
       </div>
     </div>
-
-    <!-- LIST -->
     <div class="card">
-      <div class="card-title">✦ Registros</div>
+      <div class="hist-header">
+        <div class="card-title" style="margin:0">✦ Registros</div>
+        <button class="btn-refresh" onclick="renderHist()">↻ Atualizar</button>
+      </div>
       <div id="hist-content"></div>
     </div>
   </div>
@@ -464,337 +507,196 @@ canvas { border-radius: 8px; }
       </div>
     </div>
   </div>
-</div>
 
-<script>
-// ══════════════════════════════════════
-// DADOS
-// ══════════════════════════════════════
-const CLASSES = [
-  { min:0,    max:16,   label:'Magreza Grave',   color:'#63b3ed', key:'abaixo' },
-  { min:16,   max:17,   label:'Magreza Moderada',color:'#76e4f7', key:'abaixo' },
-  { min:17,   max:18.5, label:'Magreza Leve',    color:'#81e6d9', key:'abaixo' },
-  { min:18.5, max:25,   label:'Peso Normal',      color:'#4fd1c5', key:'normal' },
-  { min:25,   max:30,   label:'Sobrepeso',         color:'#f6ad55', key:'sobrepeso' },
-  { min:30,   max:35,   label:'Obesidade Grau I', color:'#fc8181', key:'ob1' },
-  { min:35,   max:40,   label:'Obesidade Grau II',color:'#f56565', key:'ob2' },
-  { min:40,   max:999,  label:'Obesidade Grau III',color:'#e53e3e', key:'ob3' },
-];
+</div><!-- /wrap -->
 
-const TABLE_ROWS = [
-  ['Magreza Grave',    '< 16',     'abaixo'],
-  ['Magreza Moderada','16 – 17',   'abaixo'],
-  ['Magreza Leve',    '17 – 18,5', 'abaixo'],
-  ['Peso Normal ✓',   '18,5 – 25', 'normal'],
-  ['Sobrepeso',        '25 – 30',   'sobrepeso'],
-  ['Obesidade Grau I','30 – 35',   'ob1'],
-  ['Obesidade Grau II','35 – 40',  'ob2'],
-  ['Obesidade Grau III','> 40',    'ob3'],
-];
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, getDocs,
+  deleteDoc, doc, orderBy, query, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  getAuth, signInAnonymously, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const COLORS = {
-  abaixo:'#63b3ed', normal:'#4fd1c5',
-  sobrepeso:'#f6ad55', ob1:'#fc8181', ob2:'#f56565', ob3:'#e53e3e'
+// ══ CONFIG (pré-configurado) ══
+const firebaseConfig = {
+  apiKey:            "AIzaSyCCfo7BO8GtCJO41iVCfeHERhRIEnUxWwE",
+  authDomain:        "calculador-imc-4e453.firebaseapp.com",
+  projectId:         "calculador-imc-4e453",
+  storageBucket:     "calculador-imc-4e453.firebasestorage.app",
+  messagingSenderId: "902206045651",
+  appId:             "1:902206045651:web:1d098f3b6f9b0660e90326",
+  measurementId:     "G-BN31SQ048D"
 };
 
-function classifyIMC(imc) {
-  return CLASSES.find(c => imc >= c.min && imc < c.max) || CLASSES[CLASSES.length-1];
+// ══ STATE ══
+let db   = null;
+let auth = null;
+let uid  = null;  // ID único anônimo do usuário
+let docIds = [];
+
+// ══ STATUS ══
+function setStatus(type, msg) {
+  const el  = document.getElementById('fb-status');
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-txt');
+  el.className = `fb-status ${type}`;
+  dot.className = `status-dot${type==='connected'?' pulse':''}`;
+  txt.innerHTML = msg;
 }
 
-// ══════════════════════════════════════
-// STORAGE
-// ══════════════════════════════════════
-function loadHist() {
-  try { return JSON.parse(localStorage.getItem('imc_hist') || '[]'); } catch { return []; }
-}
-function saveHist(h) { localStorage.setItem('imc_hist', JSON.stringify(h)); }
+// ══ AUTO-CONNECT ON LOAD ══
+async function autoConnect() {
+  setStatus('connecting', '<span class="spinner"></span>Conectando ao Firebase...');
+  try {
+    const app = initializeApp(firebaseConfig);
+    db   = getFirestore(app);
+    auth = getAuth(app);
+    window._db = db;
 
-// ══════════════════════════════════════
-// TABS
-// ══════════════════════════════════════
-function showTab(id) {
-  ['calc','hist','ref'].forEach(t => {
-    document.getElementById(`sec-${t}`).classList.toggle('active', t===id);
-    document.getElementById(`tab-${t}`).classList.toggle('active', t===id);
-  });
-  if(id==='hist') renderHist();
-  if(id==='ref') renderTable();
-}
+    // Login anônimo — gera UID único por dispositivo/navegador
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        uid = user.uid;
+        setStatus('connected', `Conectado · sessão anônima`);
+        renderHist();
+      } else {
+        await signInAnonymously(auth);
+      }
+    });
 
-// ══════════════════════════════════════
-// NORMALIZAR ALTURA
-// ══════════════════════════════════════
-function normalizeAltura(raw) {
-  // Remove tudo exceto dígitos, ponto e vírgula
-  let v = String(raw).trim().replace(',', '.');
-  const num = parseFloat(v);
-
-  // Já está no formato correto (ex: 1.70, 1.7)
-  if (!isNaN(num) && num >= 1.0 && num <= 2.5) return num;
-
-  // Sem ponto: interpretar como centímetros (ex: 170 → 1.70, 169 → 1.69)
-  const digits = v.replace('.', '');
-  if (/^\d{2,3}$/.test(digits)) {
-    const asMeters = parseFloat(digits) / 100;
-    if (asMeters >= 1.0 && asMeters <= 2.5) return asMeters;
+  } catch(err) {
+    db = null;
+    setStatus('error', '✕ Falha na conexão: ' + (err.message || 'erro desconhecido'));
   }
-
-  return NaN;
 }
+autoConnect();
 
-// Preview em tempo real no campo altura
-document.getElementById('inp-altura').addEventListener('blur', function() {
-  const norm = normalizeAltura(this.value);
-  if (!isNaN(norm)) {
-    this.value = norm.toFixed(2);
-    this.style.borderColor = 'var(--accent)';
-    this.style.boxShadow = '0 0 0 3px rgba(79,209,197,.1)';
-    setTimeout(() => {
-      this.style.borderColor = '';
-      this.style.boxShadow = '';
-    }, 1200);
+// ══ SAVE ══
+// Salva em: usuarios/{uid}/registros_imc/{docId}
+window.saveToFirestore = async function(entry) {
+  if (!db || !uid) return null;
+  try {
+    const ref = await addDoc(
+      collection(db, 'usuarios', uid, 'registros_imc'),
+      { ...entry, criadoEm: serverTimestamp() }
+    );
+    return ref.id;
+  } catch(e) {
+    console.error(e);
+    return null;
   }
-});
-
-// ══════════════════════════════════════
-// CALCULAR
-// ══════════════════════════════════════
-function calcIMC() {
-  const altRaw = document.getElementById('inp-altura').value;
-  const alt = normalizeAltura(altRaw);
-  const peso = parseFloat(document.getElementById('inp-peso').value.replace(',','.'));
-
-  // Atualiza o campo com o valor normalizado
-  if (!isNaN(alt)) {
-    document.getElementById('inp-altura').value = alt.toFixed(2);
-  }
-
-  if(!alt || !peso || isNaN(alt) || isNaN(peso) || alt<1 || alt>2.5 || peso<20 || peso>300) {
-    shake(document.querySelector('.card'));
-    return;
-  }
-
-  const imc = peso / (alt * alt);
-  const cls = classifyIMC(imc);
-
-  // Mostrar resultado
-  document.getElementById('res-num').textContent = imc.toFixed(1);
-  document.getElementById('res-num').style.color = cls.color;
-  document.getElementById('res-class').textContent = cls.label;
-  document.getElementById('res-class').style.color = cls.color;
-
-  // Detalhes
-  const pesoMin = 18.5 * alt * alt;
-  const pesoMax = 24.9 * alt * alt;
-  let detail = `Faixa normal para sua altura: <b style="color:var(--normal)">${pesoMin.toFixed(1)} – ${pesoMax.toFixed(1)} kg</b>`;
-  document.getElementById('res-detail').innerHTML = detail;
-
-  // Scale needle position (IMC 10–45 mapped to 2%-98%)
-  const pct = Math.min(98, Math.max(2, ((imc - 10) / 35) * 96 + 2));
-  document.getElementById('scale-needle').style.left = pct + '%';
-
-  // Weight cards
-  const diff = peso - pesoMax;
-  const diffMin = peso - pesoMin;
-  const cards = [
-    { val: peso.toFixed(1), lbl: 'Seu Peso', sub: 'kg atual', color: cls.color },
-    { val: `${pesoMin.toFixed(1)}–${pesoMax.toFixed(1)}`, lbl: 'Peso Ideal', sub: 'para sua altura', color: 'var(--normal)' },
-  ];
-  if(diff > 0.5) cards.push({ val: `-${diff.toFixed(1)}`, lbl: 'A Perder', sub: 'para peso normal', color: 'var(--sobrepeso)' });
-  else if(diffMin < -0.5) cards.push({ val: `+${Math.abs(diffMin).toFixed(1)}`, lbl: 'A Ganhar', sub: 'para peso normal', color: 'var(--abaixo)' });
-  else cards.push({ val: '✓', lbl: 'Peso Normal', sub: 'parabéns!', color: 'var(--normal)' });
-  cards.push({ val: (alt*100).toFixed(0)+' cm', lbl: 'Altura', sub: `${alt.toFixed(2)} m`, color: 'var(--t2)' });
-
-  document.getElementById('weight-cards').innerHTML = cards.map(c =>
-    `<div class="wcard">
-      <div class="wcard-val" style="color:${c.color}">${c.val}</div>
-      <div class="wcard-lbl">${c.lbl}</div>
-      <div class="wcard-sub">${c.sub}</div>
-    </div>`).join('');
-
-  // Tips
-  renderTips(cls, diff, peso, alt);
-
-  // Show result
-  const rb = document.getElementById('result-box');
-  rb.classList.add('show');
-  rb.scrollIntoView({behavior:'smooth', block:'nearest'});
-
-  // Save to history
-  const hist = loadHist();
-  hist.unshift({
-    date: new Date().toISOString(),
-    imc: parseFloat(imc.toFixed(2)),
-    peso: peso,
-    altura: alt,
-    cls: cls.label,
-    color: cls.color,
-    key: cls.key,
-  });
-  saveHist(hist.slice(0, 100));
-}
-
-// ══════════════════════════════════════
-// DICAS
-// ══════════════════════════════════════
-const TIPS = {
-  abaixo: {
-    icon: '🍽️', heading: 'Como ganhar peso com saúde',
-    sub: 'Foco em nutrição densa e ganho de massa muscular',
-    tips: [
-      { ico:'🥩', title:'Proteínas em cada refeição', txt:'Inclua carnes, ovos, leguminosas ou derivados do leite em todas as refeições para estimular o ganho de massa.' },
-      { ico:'🥑', title:'Gorduras boas', txt:'Abacate, azeite, amendoim e castanhas são aliados de quem precisa de calorias de qualidade.' },
-      { ico:'⏰', title:'Coma de 3 em 3 horas', txt:'Pequenas refeições frequentes evitam o catabolismo e aumentam o aporte calórico diário gradualmente.' },
-      { ico:'🏋️', title:'Treinamento de força', txt:'Musculação 3x por semana estimula o crescimento muscular e aumenta o peso de forma saudável.' },
-      { ico:'💊', title:'Vitaminas e minerais', txt:'Deficiências de ferro, B12 e zinco são comuns em pessoas abaixo do peso — consulte um médico.' },
-      { ico:'🩺', title:'Avaliação médica', txt:'Magreza acentuada pode ter causas hormonais ou digestivas. Procure um especialista para investigar.' },
-    ]
-  },
-  normal: {
-    icon: '🌿', heading: 'Mantenha-se no peso ideal!',
-    sub: 'Você está na faixa saudável — o foco agora é a manutenção',
-    tips: [
-      { ico:'⚖️', title:'Equilíbrio calórico', txt:'Consuma calorias equivalentes ao seu gasto energético diário. Nem excesso, nem déficit extremo.' },
-      { ico:'🥦', title:'Variedade alimentar', txt:'Um prato colorido com vegetais, proteínas magras e carboidratos complexos é a base da saúde.' },
-      { ico:'💧', title:'Hidratação diária', txt:'Beba pelo menos 35 ml por kg de peso ao dia. Água pura é a melhor escolha.' },
-      { ico:'🏃', title:'Atividade física regular', txt:'150 minutos semanais de exercício moderado (caminhada, natação, bike) são suficientes para manter a saúde.' },
-      { ico:'😴', title:'Sono reparador', txt:'7–9 horas de sono regulam hormônios do apetite (leptina e grelina) e evitam ganho de peso.' },
-      { ico:'🧘', title:'Gestão do estresse', txt:'Cortisol elevado favorece o acúmulo de gordura abdominal mesmo em pessoas com IMC normal.' },
-    ]
-  },
-  sobrepeso: {
-    icon: '🎯', heading: 'Como alcançar o peso normal',
-    sub: 'Pequenas mudanças consistentes geram grandes resultados',
-    tips: [
-      { ico:'🔥', title:'Déficit calórico moderado', txt:'Um déficit de 300–500 kcal/dia promove perda de 0,3–0,5 kg/semana sem impacto no metabolismo.' },
-      { ico:'🚫', title:'Reduzir ultraprocessados', txt:'Alimentos industrializados concentram calorias vazias. Prefira versões in natura e minimamente processadas.' },
-      { ico:'🥗', title:'Aumentar fibras', txt:'Aveia, frutas com casca, legumes e feijão aumentam saciedade e regulam o intestino.' },
-      { ico:'🚶', title:'10.000 passos/dia', txt:'Caminhar mais no dia a dia aumenta o gasto calórico sem precisar de academia.' },
-      { ico:'📱', title:'Registre o que come', txt:'Estudos mostram que monitorar a alimentação por app acelera a perda de peso em até 40%.' },
-      { ico:'⏱️', title:'Jejum intermitente 16:8', txt:'Janela alimentar de 8 horas (ex: 12h–20h) pode reduzir calorias sem contar alimentos.' },
-    ]
-  },
-  ob1: {
-    icon: '💪', heading: 'Estratégias para Obesidade Grau I',
-    sub: 'Mudanças graduais e sustentáveis são mais eficazes',
-    tips: [
-      { ico:'🩺', title:'Acompanhamento profissional', txt:'Nutricionista + médico endocrinologista formam o time ideal para criar um plano seguro e personalizado.' },
-      { ico:'🏊', title:'Exercício de baixo impacto', txt:'Natação, bike e caminhada preservam as articulações enquanto queimam calorias eficientemente.' },
-      { ico:'🍽️', title:'Porções menores, mais vezes', txt:'Reduza o tamanho do prato gradualmente. Mastigue devagar — leva 20 min para o cérebro sentir saciedade.' },
-      { ico:'🚫', title:'Eliminar bebidas calóricas', txt:'Refrigerantes, sucos industriais e álcool podem representar até 30% das calorias diárias extras.' },
-      { ico:'📊', title:'Metas semanais pequenas', txt:'Foque em perder 0,5–1 kg por semana. Metas graduais têm maior taxa de manutenção a longo prazo.' },
-      { ico:'🧠', title:'Saúde emocional', txt:'Compulsão alimentar muitas vezes tem raiz emocional. Terapia pode ser parte fundamental do processo.' },
-    ]
-  },
-  ob2: {
-    icon: '🏥', heading: 'Suporte para Obesidade Grau II',
-    sub: 'Intervenção médica é fundamental nesta fase',
-    tips: [
-      { ico:'🩺', title:'Equipe multidisciplinar', txt:'Médico, nutricionista, psicólogo e educador físico trabalhando juntos oferecem os melhores resultados.' },
-      { ico:'💉', title:'Tratamento medicamentoso', txt:'Medicamentos para obesidade existem e são eficazes quando indicados por médico. Não use sem prescrição.' },
-      { ico:'🏋️', title:'Fisioterapia + exercício', txt:'A fisioterapia avalia a capacidade física atual e prescreve exercícios seguros para o seu condicionamento.' },
-      { ico:'🥗', title:'Reeducação alimentar', txt:'Não faça dietas restritivas radicais — elas aumentam o efeito sanfona. Prefira mudanças graduais permanentes.' },
-      { ico:'💤', title:'Tratar apneia do sono', txt:'Obesidade grau II frequentemente causa apneia, que aumenta o peso — é um ciclo que precisa ser tratado.' },
-      { ico:'📈', title:'Monitorar saúde metabólica', txt:'Exames regulares de glicemia, colesterol, pressão e triglicerídeos são essenciais nesta fase.' },
-    ]
-  },
-  ob3: {
-    icon: '🚨', heading: 'Obesidade Grau III — Atenção Máxima',
-    sub: 'Busque orientação médica especializada imediatamente',
-    tips: [
-      { ico:'🏥', title:'Consulta imediata', txt:'IMC acima de 40 representa risco grave à saúde. Procure um endocrinologista ou clínico geral urgentemente.' },
-      { ico:'🔪', title:'Cirurgia bariátrica', txt:'Para IMC > 40, a cirurgia bariátrica pode ser indicada e tem alto índice de sucesso a longo prazo.' },
-      { ico:'💊', title:'Controle de comorbidades', txt:'Diabetes, hipertensão e apneia são comuns e devem ser tratadas em paralelo ao processo de emagrecimento.' },
-      { ico:'🧠', title:'Suporte psicológico', txt:'O componente emocional da obesidade severa é significativo. Terapia cognitivo-comportamental é recomendada.' },
-      { ico:'🚶', title:'Movimento possível', txt:'Mesmo caminhadas curtas de 5–10 minutos já trazem benefícios cardiovasculares. Comece devagar.' },
-      { ico:'❤️', title:'Auto-compaixão', txt:'A jornada é longa. Celebre cada pequeno progresso. A mudança sustentável nasce do cuidado, não da culpa.' },
-    ]
-  },
 };
 
-function renderTips(cls, diff, peso, alt) {
-  const key = cls.key === 'abaixo' ? 'abaixo' :
-              cls.key === 'normal' ? 'normal' :
-              cls.key === 'sobrepeso' ? 'sobrepeso' :
-              cls.key;
-  const data = TIPS[key] || TIPS['normal'];
-  document.getElementById('tips-icon').textContent = data.icon;
-  document.getElementById('tips-heading').textContent = data.heading;
+// ══ DELETE ══
+window.deleteFromFirestore = async function(docId) {
+  if (!db || !uid || !docId) return;
+  try {
+    await deleteDoc(doc(db, 'usuarios', uid, 'registros_imc', docId));
+  } catch(e) { console.error(e); }
+};
 
-  let sub = data.sub;
-  if(diff > 0.5) sub = `Para chegar ao peso normal, foque em perder aproximadamente <b style="color:var(--sobrepeso)">${diff.toFixed(1)} kg</b>`;
-  else if(diff < -0.5) sub = `Para chegar ao peso mínimo normal, você pode ganhar até <b style="color:var(--abaixo)">${Math.abs(diff).toFixed(1)} kg</b>`;
-  document.getElementById('tips-sub').innerHTML = sub;
-
-  document.getElementById('tips-grid').innerHTML = data.tips.map(t =>
-    `<div class="tip-item">
-      <div class="tip-ico">${t.ico}</div>
-      <div class="tip-text"><b>${t.title}</b>${t.txt}</div>
-    </div>`).join('');
-}
-
-// ══════════════════════════════════════
-// HISTÓRICO
-// ══════════════════════════════════════
-let chartLine = null, chartWeight = null;
-
-function renderHist() {
-  const hist = loadHist();
+// ══ RENDER HIST ══
+window.renderHist = async function() {
   const content = document.getElementById('hist-content');
-  const cs = document.getElementById('charts-section');
+  const cs      = document.getElementById('charts-section');
 
-  if(!hist.length) {
+  if (!db || !uid) {
     cs.style.display = 'none';
     content.innerHTML = `<div class="hist-empty">
-      <div class="hist-empty-ico">📊</div>
-      <div class="hist-empty-txt">Nenhum registro ainda.<br>Calcule seu IMC para começar o histórico.</div>
+      <div class="hist-empty-ico">🔥</div>
+      <div class="hist-empty-txt">Aguardando conexão com o Firebase...</div>
     </div>`;
     return;
   }
 
-  cs.style.display = 'block';
-  renderCharts(hist);
+  content.innerHTML = `<div class="hist-empty"><div class="hist-empty-ico"><span class="spinner" style="width:24px;height:24px;border-width:3px"></span></div><div class="hist-empty-txt">Carregando seus registros...</div></div>`;
 
-  const listHTML = hist.map((h,i) => {
-    const d = new Date(h.date);
-    const dateStr = d.toLocaleDateString('pt-BR', {day:'2-digit',month:'short',year:'numeric'});
-    const timeStr = d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-    return `<div class="hist-item">
-      <div class="hist-dot" style="background:${h.color}"></div>
-      <div class="hist-info">
-        <div class="hist-date">${dateStr} às ${timeStr}</div>
-        <div class="hist-vals">
-          <span class="hist-imc" style="color:${h.color}">${h.imc}</span>
-          <span class="hist-class">${h.cls}</span>
+  try {
+    const q    = query(
+      collection(db, 'usuarios', uid, 'registros_imc'),
+      orderBy('criadoEm', 'desc')
+    );
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      cs.style.display = 'none';
+      content.innerHTML = `<div class="hist-empty">
+        <div class="hist-empty-ico">📊</div>
+        <div class="hist-empty-txt">Nenhum registro ainda.<br>Calcule seu IMC para começar o histórico.</div>
+      </div>`;
+      return;
+    }
+
+    const hist = [];
+    docIds = [];
+    snap.forEach(d => {
+      hist.push(d.data());
+      docIds.push(d.id);
+    });
+
+    cs.style.display = 'block';
+    renderCharts(hist);
+
+    const listHTML = hist.map((h, i) => {
+      const d = h.criadoEm?.toDate ? h.criadoEm.toDate() : new Date(h.date || Date.now());
+      const dateStr = d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+      const timeStr = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      return `<div class="hist-item">
+        <div class="hist-dot" style="background:${h.color}"></div>
+        <div class="hist-info">
+          <div class="hist-date">${dateStr} às ${timeStr}</div>
+          <div class="hist-vals">
+            <span class="hist-imc" style="color:${h.color}">${h.imc}</span>
+            <span class="hist-class">${h.cls}</span>
+          </div>
+          <div class="hist-meta">${h.peso} kg · ${h.altura} m</div>
         </div>
-        <div class="hist-meta">${h.peso} kg · ${h.altura} m</div>
-      </div>
-      <button class="hist-del" onclick="delHist(${i})" title="Remover">✕</button>
+        <button class="hist-del" onclick="delHist(${i})" title="Remover">✕</button>
+      </div>`;
+    }).join('');
+
+    content.innerHTML = `<div class="hist-list">${listHTML}</div>
+      <button class="btn-clear-all" onclick="clearAll()">🗑 Limpar todo o histórico</button>`;
+
+  } catch(err) {
+    content.innerHTML = `<div class="hist-empty">
+      <div class="hist-empty-ico">⚠️</div>
+      <div class="hist-empty-txt">Erro ao carregar: ${err.message}</div>
     </div>`;
-  }).join('');
+  }
+};
 
-  content.innerHTML = `<div class="hist-list">${listHTML}</div>
-    <button class="btn-clear-all" onclick="clearAll()">🗑 Limpar todo o histórico</button>`;
-}
+// ══ DELETE ITEM ══
+window.delHist = async function(i) {
+  const id = docIds[i];
+  if (!id) return;
+  await window.deleteFromFirestore(id);
+  renderHist();
+};
 
-function delHist(i) {
-  const h = loadHist(); h.splice(i,1); saveHist(h); renderHist();
-}
-function clearAll() {
-  if(confirm('Apagar todo o histórico?')) { saveHist([]); renderHist(); }
-}
+// ══ CLEAR ALL ══
+window.clearAll = async function() {
+  if (!confirm('Apagar todo o seu histórico?')) return;
+  for (const id of docIds) {
+    await window.deleteFromFirestore(id);
+  }
+  renderHist();
+};
 
-// ══════════════════════════════════════
-// CHARTS
-// ══════════════════════════════════════
-function renderCharts(hist) {
+// ══ CHART ══
+let chartLine = null, chartWeight = null;
+window.renderCharts = function(hist) {
   const rev = [...hist].reverse();
   const labels = rev.map(h => {
-    const d = new Date(h.date);
+    const d = h.criadoEm?.toDate ? h.criadoEm.toDate() : new Date(h.date || Date.now());
     return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
   });
-  const imcs = rev.map(h => h.imc);
-  const pesos = rev.map(h => h.peso);
+  const imcs     = rev.map(h => h.imc);
+  const pesos    = rev.map(h => h.peso);
   const ptColors = rev.map(h => h.color);
 
   const chartOpts = {
@@ -810,56 +712,279 @@ function renderCharts(hist) {
     }
   };
 
-  // Line chart — IMC
-  if(chartLine) chartLine.destroy();
+  if (chartLine)   chartLine.destroy();
+  if (chartWeight) chartWeight.destroy();
+
   chartLine = new Chart(document.getElementById('chart-line'), {
     type: 'line',
     data: {
       labels,
-      datasets: [{
-        data: imcs,
-        borderColor: '#4fd1c5',
-        backgroundColor: 'rgba(79,209,197,.08)',
-        pointBackgroundColor: ptColors,
-        pointBorderColor: ptColors,
-        pointRadius: 5, pointHoverRadius: 7,
-        fill: true, tension: 0.4, borderWidth: 2,
-      }]
+      datasets: [{ data: imcs, borderColor: '#4fd1c5', backgroundColor: 'rgba(79,209,197,.08)',
+        pointBackgroundColor: ptColors, pointBorderColor: ptColors,
+        pointRadius: 5, pointHoverRadius: 7, fill: true, tension: 0.4, borderWidth: 2 }]
     },
-    options: {
-      ...chartOpts,
-      plugins: {
-        ...chartOpts.plugins,
-        annotation: {
-          annotations: {
-            min: { type:'line', yMin:18.5, yMax:18.5, borderColor:'rgba(79,209,197,.3)', borderWidth:1, borderDash:[4,4] },
-            max: { type:'line', yMin:25, yMax:25, borderColor:'rgba(79,209,197,.3)', borderWidth:1, borderDash:[4,4] },
-          }
-        }
-      }
-    }
+    options: chartOpts
   });
 
-  // Bar chart — Peso
-  if(chartWeight) chartWeight.destroy();
   chartWeight = new Chart(document.getElementById('chart-weight'), {
     type: 'bar',
     data: {
       labels,
-      datasets: [{
-        data: pesos,
+      datasets: [{ data: pesos,
         backgroundColor: ptColors.map(c => c + '66'),
-        borderColor: ptColors,
-        borderWidth: 2, borderRadius: 6,
-      }]
+        borderColor: ptColors, borderWidth: 2, borderRadius: 6 }]
     },
-    options: chartOpts,
+    options: chartOpts
   });
+};
+
+// ══════ NON-MODULE SCRIPT BRIDGE ══════
+// Expose for inline onclick handlers
+window._saveToFirestoreExternal = window.saveToFirestore;
+</script>
+
+<script>
+// ══ CLASSES ══
+const CLASSES = [
+  { min:0,    max:16,   label:'Magreza Grave',    color:'#63b3ed', key:'abaixo' },
+  { min:16,   max:17,   label:'Magreza Moderada', color:'#76e4f7', key:'abaixo' },
+  { min:17,   max:18.5, label:'Magreza Leve',     color:'#81e6d9', key:'abaixo' },
+  { min:18.5, max:25,   label:'Peso Normal',      color:'#4fd1c5', key:'normal' },
+  { min:25,   max:30,   label:'Sobrepeso',         color:'#f6ad55', key:'sobrepeso' },
+  { min:30,   max:35,   label:'Obesidade Grau I',  color:'#fc8181', key:'ob1' },
+  { min:35,   max:40,   label:'Obesidade Grau II', color:'#f56565', key:'ob2' },
+  { min:40,   max:999,  label:'Obesidade Grau III',color:'#e53e3e', key:'ob3' },
+];
+const TABLE_ROWS = [
+  ['Magreza Grave',    '< 16',     'abaixo'],
+  ['Magreza Moderada','16 – 17',   'abaixo'],
+  ['Magreza Leve',    '17 – 18,5', 'abaixo'],
+  ['Peso Normal ✓',   '18,5 – 25', 'normal'],
+  ['Sobrepeso',        '25 – 30',   'sobrepeso'],
+  ['Obesidade Grau I','30 – 35',   'ob1'],
+  ['Obesidade Grau II','35 – 40',  'ob2'],
+  ['Obesidade Grau III','> 40',    'ob3'],
+];
+const COLORS = {
+  abaixo:'#63b3ed', normal:'#4fd1c5',
+  sobrepeso:'#f6ad55', ob1:'#fc8181', ob2:'#f56565', ob3:'#e53e3e'
+};
+
+function classifyIMC(imc) {
+  return CLASSES.find(c => imc >= c.min && imc < c.max) || CLASSES[CLASSES.length-1];
 }
 
-// ══════════════════════════════════════
-// TABELA
-// ══════════════════════════════════════
+// ══ TABS ══
+function showTab(id) {
+  ['calc','hist','ref'].forEach(t => {
+    document.getElementById(`sec-${t}`).classList.toggle('active', t===id);
+    document.getElementById(`tab-${t}`).classList.toggle('active', t===id);
+  });
+  if (id==='hist') renderHist();
+  if (id==='ref')  renderTable();
+}
+
+// ══ NORMALIZE ALTURA ══
+function normalizeAltura(raw) {
+  let v = String(raw).trim().replace(',', '.');
+  const num = parseFloat(v);
+  if (!isNaN(num) && num >= 1.0 && num <= 2.5) return num;
+  const digits = v.replace('.', '');
+  if (/^\d{2,3}$/.test(digits)) {
+    const asMeters = parseFloat(digits) / 100;
+    if (asMeters >= 1.0 && asMeters <= 2.5) return asMeters;
+  }
+  return NaN;
+}
+
+document.getElementById('inp-altura').addEventListener('blur', function() {
+  const norm = normalizeAltura(this.value);
+  if (!isNaN(norm)) {
+    this.value = norm.toFixed(2);
+    this.style.borderColor = 'var(--accent)';
+    this.style.boxShadow = '0 0 0 3px rgba(79,209,197,.1)';
+    setTimeout(() => { this.style.borderColor = ''; this.style.boxShadow = ''; }, 1200);
+  }
+});
+
+// ══ CALCULAR ══
+async function calcIMC() {
+  const altRaw = document.getElementById('inp-altura').value;
+  const alt    = normalizeAltura(altRaw);
+  const peso   = parseFloat(document.getElementById('inp-peso').value.replace(',','.'));
+
+  if (!isNaN(alt)) document.getElementById('inp-altura').value = alt.toFixed(2);
+
+  if (!alt || !peso || isNaN(alt) || isNaN(peso) || alt<1 || alt>2.5 || peso<20 || peso>300) {
+    shake(document.querySelector('.card'));
+    return;
+  }
+
+  const imc = peso / (alt * alt);
+  const cls = classifyIMC(imc);
+
+  document.getElementById('res-num').textContent  = imc.toFixed(1);
+  document.getElementById('res-num').style.color  = cls.color;
+  document.getElementById('res-class').textContent = cls.label;
+  document.getElementById('res-class').style.color = cls.color;
+
+  const pesoMin = 18.5 * alt * alt;
+  const pesoMax = 24.9 * alt * alt;
+  document.getElementById('res-detail').innerHTML =
+    `Faixa normal para sua altura: <b style="color:var(--normal)">${pesoMin.toFixed(1)} – ${pesoMax.toFixed(1)} kg</b>`;
+
+  const pct = Math.min(98, Math.max(2, ((imc - 10) / 35) * 96 + 2));
+  document.getElementById('scale-needle').style.left = pct + '%';
+
+  const diff    = peso - pesoMax;
+  const diffMin = peso - pesoMin;
+  const cards = [
+    { val: peso.toFixed(1), lbl: 'Seu Peso', sub: 'kg atual', color: cls.color },
+    { val: `${pesoMin.toFixed(1)}–${pesoMax.toFixed(1)}`, lbl: 'Peso Ideal', sub: 'para sua altura', color: 'var(--normal)' },
+  ];
+  if (diff > 0.5)       cards.push({ val: `-${diff.toFixed(1)}`,         lbl: 'A Perder', sub: 'para peso normal',   color: 'var(--sobrepeso)' });
+  else if (diffMin < -0.5) cards.push({ val: `+${Math.abs(diffMin).toFixed(1)}`, lbl: 'A Ganhar', sub: 'para peso normal', color: 'var(--abaixo)' });
+  else                  cards.push({ val: '✓', lbl: 'Peso Normal', sub: 'parabéns!', color: 'var(--normal)' });
+  cards.push({ val: (alt*100).toFixed(0)+' cm', lbl: 'Altura', sub: `${alt.toFixed(2)} m`, color: 'var(--t2)' });
+
+  document.getElementById('weight-cards').innerHTML = cards.map(c =>
+    `<div class="wcard">
+      <div class="wcard-val" style="color:${c.color}">${c.val}</div>
+      <div class="wcard-lbl">${c.lbl}</div>
+      <div class="wcard-sub">${c.sub}</div>
+    </div>`).join('');
+
+  renderTips(cls, diff, peso, alt);
+
+  const rb = document.getElementById('result-box');
+  rb.classList.add('show');
+  rb.scrollIntoView({ behavior:'smooth', block:'nearest' });
+
+  // ── SAVE TO FIRESTORE ──
+  const saveNote = document.getElementById('save-note');
+  saveNote.style.display = 'block';
+
+  const entry = {
+    date:  new Date().toISOString(),
+    imc:   parseFloat(imc.toFixed(2)),
+    peso,
+    altura: alt,
+    cls:   cls.label,
+    color: cls.color,
+    key:   cls.key,
+  };
+
+  if (window._saveToFirestoreExternal) {
+    saveNote.className = 'save-note saving';
+    saveNote.innerHTML = '<span class="spinner"></span>Salvando no Firestore...';
+    const id = await window._saveToFirestoreExternal(entry);
+    if (id) {
+      saveNote.className = 'save-note saved';
+      saveNote.textContent = '✓ Salvo no Firestore com sucesso';
+      setTimeout(() => { saveNote.style.display = 'none'; }, 3000);
+    } else {
+      saveNote.className = 'save-note saveerr';
+      saveNote.textContent = '✕ Erro ao salvar — verifique as regras do Firestore';
+    }
+  } else {
+    saveNote.className = 'save-note nosave';
+    saveNote.textContent = '⚠ Firebase não conectado — resultado não salvo';
+  }
+}
+
+// ══ TIPS ══
+const TIPS = {
+  abaixo: {
+    icon:'🍽️', heading:'Como ganhar peso com saúde',
+    sub:'Foco em nutrição densa e ganho de massa muscular',
+    tips:[
+      {ico:'🥩',title:'Proteínas em cada refeição',txt:'Inclua carnes, ovos, leguminosas ou derivados do leite em todas as refeições para estimular o ganho de massa.'},
+      {ico:'🥑',title:'Gorduras boas',txt:'Abacate, azeite, amendoim e castanhas são aliados de quem precisa de calorias de qualidade.'},
+      {ico:'⏰',title:'Coma de 3 em 3 horas',txt:'Pequenas refeições frequentes evitam o catabolismo e aumentam o aporte calórico diário gradualmente.'},
+      {ico:'🏋️',title:'Treinamento de força',txt:'Musculação 3x por semana estimula o crescimento muscular e aumenta o peso de forma saudável.'},
+      {ico:'💊',title:'Vitaminas e minerais',txt:'Deficiências de ferro, B12 e zinco são comuns em pessoas abaixo do peso — consulte um médico.'},
+      {ico:'🩺',title:'Avaliação médica',txt:'Magreza acentuada pode ter causas hormonais ou digestivas. Procure um especialista para investigar.'},
+    ]
+  },
+  normal: {
+    icon:'🌿', heading:'Mantenha-se no peso ideal!',
+    sub:'Você está na faixa saudável — o foco agora é a manutenção',
+    tips:[
+      {ico:'⚖️',title:'Equilíbrio calórico',txt:'Consuma calorias equivalentes ao seu gasto energético diário. Nem excesso, nem déficit extremo.'},
+      {ico:'🥦',title:'Variedade alimentar',txt:'Um prato colorido com vegetais, proteínas magras e carboidratos complexos é a base da saúde.'},
+      {ico:'💧',title:'Hidratação diária',txt:'Beba pelo menos 35 ml por kg de peso ao dia. Água pura é a melhor escolha.'},
+      {ico:'🏃',title:'Atividade física regular',txt:'150 minutos semanais de exercício moderado (caminhada, natação, bike) são suficientes para manter a saúde.'},
+      {ico:'😴',title:'Sono reparador',txt:'7–9 horas de sono regulam hormônios do apetite (leptina e grelina) e evitam ganho de peso.'},
+      {ico:'🧘',title:'Gestão do estresse',txt:'Cortisol elevado favorece o acúmulo de gordura abdominal mesmo em pessoas com IMC normal.'},
+    ]
+  },
+  sobrepeso: {
+    icon:'🎯', heading:'Como alcançar o peso normal',
+    sub:'Pequenas mudanças consistentes geram grandes resultados',
+    tips:[
+      {ico:'🔥',title:'Déficit calórico moderado',txt:'Um déficit de 300–500 kcal/dia promove perda de 0,3–0,5 kg/semana sem impacto no metabolismo.'},
+      {ico:'🚫',title:'Reduzir ultraprocessados',txt:'Alimentos industrializados concentram calorias vazias. Prefira versões in natura e minimamente processadas.'},
+      {ico:'🥗',title:'Aumentar fibras',txt:'Aveia, frutas com casca, legumes e feijão aumentam saciedade e regulam o intestino.'},
+      {ico:'🚶',title:'10.000 passos/dia',txt:'Caminhar mais no dia a dia aumenta o gasto calórico sem precisar de academia.'},
+      {ico:'📱',title:'Registre o que come',txt:'Estudos mostram que monitorar a alimentação por app acelera a perda de peso em até 40%.'},
+      {ico:'⏱️',title:'Jejum intermitente 16:8',txt:'Janela alimentar de 8 horas (ex: 12h–20h) pode reduzir calorias sem contar alimentos.'},
+    ]
+  },
+  ob1: {
+    icon:'💪', heading:'Estratégias para Obesidade Grau I',
+    sub:'Mudanças graduais e sustentáveis são mais eficazes',
+    tips:[
+      {ico:'🩺',title:'Acompanhamento profissional',txt:'Nutricionista + médico endocrinologista formam o time ideal para criar um plano seguro e personalizado.'},
+      {ico:'🏊',title:'Exercício de baixo impacto',txt:'Natação, bike e caminhada preservam as articulações enquanto queimam calorias eficientemente.'},
+      {ico:'🍽️',title:'Porções menores, mais vezes',txt:'Reduza o tamanho do prato gradualmente. Mastigue devagar — leva 20 min para o cérebro sentir saciedade.'},
+      {ico:'🚫',title:'Eliminar bebidas calóricas',txt:'Refrigerantes, sucos industriais e álcool podem representar até 30% das calorias diárias extras.'},
+      {ico:'📊',title:'Metas semanais pequenas',txt:'Foque em perder 0,5–1 kg por semana. Metas graduais têm maior taxa de manutenção a longo prazo.'},
+      {ico:'🧠',title:'Saúde emocional',txt:'Compulsão alimentar muitas vezes tem raiz emocional. Terapia pode ser parte fundamental do processo.'},
+    ]
+  },
+  ob2: {
+    icon:'🏥', heading:'Suporte para Obesidade Grau II',
+    sub:'Intervenção médica é fundamental nesta fase',
+    tips:[
+      {ico:'🩺',title:'Equipe multidisciplinar',txt:'Médico, nutricionista, psicólogo e educador físico trabalhando juntos oferecem os melhores resultados.'},
+      {ico:'💉',title:'Tratamento medicamentoso',txt:'Medicamentos para obesidade existem e são eficazes quando indicados por médico. Não use sem prescrição.'},
+      {ico:'🏋️',title:'Fisioterapia + exercício',txt:'A fisioterapia avalia a capacidade física atual e prescreve exercícios seguros para o seu condicionamento.'},
+      {ico:'🥗',title:'Reeducação alimentar',txt:'Não faça dietas restritivas radicais — elas aumentam o efeito sanfona. Prefira mudanças graduais permanentes.'},
+      {ico:'💤',title:'Tratar apneia do sono',txt:'Obesidade grau II frequentemente causa apneia, que aumenta o peso — é um ciclo que precisa ser tratado.'},
+      {ico:'📈',title:'Monitorar saúde metabólica',txt:'Exames regulares de glicemia, colesterol, pressão e triglicerídeos são essenciais nesta fase.'},
+    ]
+  },
+  ob3: {
+    icon:'🚨', heading:'Obesidade Grau III — Atenção Máxima',
+    sub:'Busque orientação médica especializada imediatamente',
+    tips:[
+      {ico:'🏥',title:'Consulta imediata',txt:'IMC acima de 40 representa risco grave à saúde. Procure um endocrinologista ou clínico geral urgentemente.'},
+      {ico:'🔪',title:'Cirurgia bariátrica',txt:'Para IMC > 40, a cirurgia bariátrica pode ser indicada e tem alto índice de sucesso a longo prazo.'},
+      {ico:'💊',title:'Controle de comorbidades',txt:'Diabetes, hipertensão e apneia são comuns e devem ser tratadas em paralelo ao processo de emagrecimento.'},
+      {ico:'🧠',title:'Suporte psicológico',txt:'O componente emocional da obesidade severa é significativo. Terapia cognitivo-comportamental é recomendada.'},
+      {ico:'🚶',title:'Movimento possível',txt:'Mesmo caminhadas curtas de 5–10 minutos já trazem benefícios cardiovasculares. Comece devagar.'},
+      {ico:'❤️',title:'Auto-compaixão',txt:'A jornada é longa. Celebre cada pequeno progresso. A mudança sustentável nasce do cuidado, não da culpa.'},
+    ]
+  },
+};
+
+function renderTips(cls, diff, peso, alt) {
+  const key  = cls.key === 'abaixo' ? 'abaixo' : cls.key === 'normal' ? 'normal' : cls.key === 'sobrepeso' ? 'sobrepeso' : cls.key;
+  const data = TIPS[key] || TIPS['normal'];
+  document.getElementById('tips-icon').textContent = data.icon;
+  document.getElementById('tips-heading').textContent = data.heading;
+  let sub = data.sub;
+  if (diff > 0.5)       sub = `Para chegar ao peso normal, foque em perder aproximadamente <b style="color:var(--sobrepeso)">${diff.toFixed(1)} kg</b>`;
+  else if (diff < -0.5) sub = `Para chegar ao peso mínimo normal, você pode ganhar até <b style="color:var(--abaixo)">${Math.abs(diff).toFixed(1)} kg</b>`;
+  document.getElementById('tips-sub').innerHTML = sub;
+  document.getElementById('tips-grid').innerHTML = data.tips.map(t =>
+    `<div class="tip-item">
+      <div class="tip-ico">${t.ico}</div>
+      <div class="tip-text"><b>${t.title}</b>${t.txt}</div>
+    </div>`).join('');
+}
+
+// ══ TABLE ══
 function renderTable() {
   const tbody = document.querySelector('#table-imc tbody');
   tbody.innerHTML = TABLE_ROWS.map(([label, range, key]) => {
@@ -868,17 +993,15 @@ function renderTable() {
       <td><span class="tc" style="background:${color}22;color:${color}">${label}</span></td>
       <td style="font-family:'DM Mono',monospace;font-size:.78rem;color:var(--t2)">${range}</td>
       <td style="font-size:.78rem;color:var(--t3)">${
-        key==='normal' ? '✅ Saudável' :
-        key==='abaixo' ? '⬇️ Abaixo do normal' :
+        key==='normal'    ? '✅ Saudável' :
+        key==='abaixo'    ? '⬇️ Abaixo do normal' :
         key==='sobrepeso' ? '⚠️ Atenção' : '🔴 Risco elevado'
       }</td>
     </tr>`;
   }).join('');
 }
 
-// ══════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════
+// ══ UTILS ══
 function shake(el) {
   el.style.animation = 'none';
   el.offsetHeight;
@@ -888,12 +1011,8 @@ const shakeCSS = document.createElement('style');
 shakeCSS.textContent = `@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}`;
 document.head.appendChild(shakeCSS);
 
-// Enter key to calculate
-document.addEventListener('keydown', e => {
-  if(e.key==='Enter') calcIMC();
-});
+document.addEventListener('keydown', e => { if (e.key==='Enter') calcIMC(); });
 
-// Init table on load
 renderTable();
 </script>
 </body>
